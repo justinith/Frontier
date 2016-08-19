@@ -1,0 +1,336 @@
+body {
+	background: url(../img/dot_grid.png);
+}
+
+.openingScreen {
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
+}
+	.openingScreen img {
+		width: 250px;
+		margin-top: 30vh;
+		margin-bottom: 15px;
+	}
+
+	.openingScreen .startButton {
+		height: 150px;
+		width: 150px;
+		border-radius: 50%;
+		line-height: 149px;
+		background-color: #3498db;
+		text-align: center;
+		color: white;
+		font-weight: 200;
+		font-size: 16pt;
+		letter-spacing: 5px;
+		display: inline-block;
+		-webkit-box-shadow: 0px 0px 20px 0px rgba(50, 50, 50, 0.33);
+		-moz-box-shadow:    0px 0px 20px 0px rgba(50, 50, 50, 0.33);
+		box-shadow:         0px 0px 20px 0px rgba(50, 50, 50, 0.33);
+	}
+
+	.openingScreen .startButton:hover {
+		transition: background-color ease 0.3s;
+		background-color: #FFA330;
+		cursor: pointer;
+	}
+
+#header {
+	background-color: #3498db;
+
+	background: url(../img/header_bg3.png) no-repeat bottom;
+	background-size: cover;
+
+	text-align: center;
+	color: white;
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(50, 50, 50, 0.73);
+	-moz-box-shadow:    0px 0px 20px 0px rgba(50, 50, 50, 0.73);
+	box-shadow:         0px 0px 20px 0px rgba(50, 50, 50, 0.73);
+	z-index: 100;
+}
+	#header p {
+		font-size: 13pt;
+	}
+
+	#header a:hover {
+		color: white;
+	}
+
+	.spacer {
+		height: 20px;
+		width: 100%;
+	}
+
+	.headerContent {
+		display: inline-block;
+		
+	}
+
+	.completionBar {
+		height: 10px;
+		width: 400px;
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: 15px;
+		background:rgba(255,255,255,0.4);
+	}
+	
+	.completionDone {
+		background:rgba(255,255,255,1);
+		height: 10px;
+	}
+
+	.completionText {
+		margin: 0px;
+		display: block;
+		margin-top: 13px;
+		margin-bottom: 8px;
+	}
+
+	.partMenu {
+		width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+	}
+
+	.partMenu div {
+		padding: 12px 0px;
+		float: left;
+		text-align: center;
+		width: 20%;
+		border-bottom: solid #00BFA5 7px;
+	}
+
+	.partMenu .activePart {
+		border-bottom: solid #FFB734 7px;
+	}
+
+	.partMenu i {
+		margin-left: 10px;
+	}
+
+	.partMenu .fa-check-circle {
+		color: rgba(46,204,113,1);
+		
+	}
+
+	.partMenu div:hover {
+		border-bottom: solid #4FCFBD 7px;
+	}
+
+.coreContent {
+	z-index: 1;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+	.videoSection {
+		overflow: auto;
+	}
+
+	.videoHolder {
+		overflow: auto;
+		float: left;
+		width: 800px;
+		text-align: center;
+		width: 100%;
+	}
+		#skipAhead {
+			margin-top: 15px;
+			font-size: 14pt;
+		}
+
+		#skipAhead a {
+			color: #009480;
+		}
+
+	video {
+		text-align: center;
+		margin-right: 25px;
+	}
+
+	.vidInstructions {
+		float: left;
+		width: 340px;
+		display: none;
+	}
+
+	.vidInstructions .revealInitiate {
+		display: none;
+	}
+		
+		.vidInstructions .revealInitiate p {
+			font-size: 15pt;
+			font-weight: 300;
+			margin-top: 15vh;
+		}
+
+		.vidInstructions .revealInitiate h1 {
+		}
+
+	.vidInstructions .revealButton {
+		width: 100%;
+		padding: 15px;
+		text-align: center;
+		border: solid 2px #3498db;
+		color: #3498db;
+		background-color: white;
+		font-weight: 400;
+		font-size: 15pt;
+		text-transform: uppercase;
+		letter-spacing: 4px;
+	}
+
+	.vidInstructions .taskWork {
+		display: none;
+	}
+
+		.vidInstructions .taskWork h4 {
+			margin-bottom: 10px;
+			color: #a8a8a8;
+			letter-spacing: 7px;
+			font-size: 12pt;
+		}
+
+		.vidInstructions .taskWork h2 {
+			font-size: 20pt;
+			font-weight: 400;
+		}
+
+		.vidInstructions .taskWork .emph {
+			color: #47ABAD;
+			font-weight: 600;
+		}
+
+		.vidInstructions .taskWork p {
+			font-size: 14pt;
+			line-height: 20pt;
+			font-weight: 300;
+			margin-top: 25px;	
+		}
+
+		.vidInstructions .taskWork .materialsInstruction {
+			text-align: center;
+			font-weight: 500;
+			margin-top: 20px;
+		}
+
+		.vidInstructions .taskWork .useTempButton {
+			width: 100%;
+			padding: 10px;
+			text-align: center;
+			border: solid 2px #47ABAD;
+			color: #47ABAD;
+			background-color: white;
+			font-weight: 400;
+			font-size: 12pt;
+			text-transform: uppercase;
+			letter-spacing: 4px;
+			margin-bottom: 30px;
+		}
+
+			.vidInstructions .taskWork .useTempButton:hover {
+				background-color: #47ABAD;
+				color: white;
+			}
+		
+		.finishButton {
+			background-color: #FFB734;
+			color: white;
+			padding: 20px;
+			font-size: 15pt;
+			text-align: center;
+			letter-spacing: 5px;
+			margin-top: 30px;
+			font-weight: 400;
+		}
+
+			.finishButton:hover {
+				font-style: italic;
+				text-decoration: none;
+			}
+
+			a:hover {
+				text-decoration: none;
+			}
+
+
+		.vidInstructions .taskWork .finishButton i {
+			font-size: 18pt;
+		}
+
+		.vidInstructions .taskWork .seperatorLine {
+			border-bottom: dashed 2px lightgray;
+			width: 100%;
+		}
+
+#upsellModal {
+}
+	#upsellModal h1, #upsellModal h3 {
+		color: white;
+	}
+
+	#upsellModal h1 {
+		font-weight: 600;
+		font-size: 4em;
+		margin-bottom: 25px;
+		margin-top: 10px;
+	}
+
+	#upsellModal h3 {
+		margin-bottom: 35px;
+	}
+
+	.modal-backdrop.in {
+		opacity: 0.6;
+	}
+
+	#upsellModal .modalBtn {
+		padding: 15px 30px;
+		border: none;
+		font-size: 13pt;
+		color: white;
+		background: transparent;
+	}
+
+	#upsellModal .modal-body {
+		padding: 45px;
+		padding-bottom: 5px;
+	}
+
+	#upsellModal .modal-content {
+		background-color: #4AA7B4;
+	}
+
+	#upsellModal .modal-footer {
+		border: none;
+		padding: 45px;
+		padding-top: 5px;
+	}
+
+	#upsellModal label {
+		color: white;
+		font-size: 25px;
+	}
+
+	.form-control {
+		height: auto;
+		line-height: auto;
+		font-size: 20px;
+		padding: 12px 20px;
+		margin-bottom: 15px;
+	}
+
+	button:focus {
+		border: none;
+	}
+
+@media (min-width: 768px) {
+	.modal-dialog {
+		width: 800px;
+	}
+}
+
+
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Frontier | Dashboard</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/dashboard.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>
+		
+		<div class="container">
+			<div id="nav">
+				<span class="logoText"><img src="img/logo_blue.png"></span>
+				<div class="clickable">
+					<i class="fa fa-caret-down"></i>
+					<div class="profileNav">
+						<div class="circular"></div>
+					</div>
+				</div>
+				<span class="username">matt</span>
+			</div>
+		</div>
+
+		<div class="container">
+			<h2 class="sectionTitle">actively exploring</h2>
+			<div id="gdTile" class="projectTile">
+				<div class="tileStatus active"></div>
+				<div class="tileContent graphic">
+					<h1>Graphic Designer</h1>
+					<a href="project.html"><div class="continueButton clickable">continue</div></a>
+					<p class="completionText">40% completed</p>
+					<div class="completionBar">
+						<div class="completionDone" style="width: 40%;"></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="container">
+			<div id="oldTiles">
+				<div class="options">
+					<span id="presults" class="sectionTitle active clickable" style="margin-right: 30px;">pending results</span>
+					<span id="cresults" class="sectionTitle clickable">completed results</span><span class="notification">1</span>
+				</div>
+				<div id="uxTile" class="projectTile">
+					<div class="tileStatus pending"></div>
+					<div class="tileContent ux">
+						<h1>UX Designer</h1>
+						<div class="continueButton clickable">see work</div>
+						<p class="completionText">100% completed</p>
+						<div class="completionBar">
+							<div class="completionDone" style="width: 100%;"></div>
+						</div>
+						
+					</div>
+				</div>
+				<div id="archTile" class="projectTile">
+					<div class="tileStatus pending"></div>
+					<div class="tileContent arch">
+						<h1>Architect</h1>
+						<div class="continueButton clickable">see work</div>
+						<p class="completionText">100% completed</p>
+						<div class="completionBar">
+							<div class="completionDone" style="width: 100%;"></div>
+						</div>
+						
+					</div>
+				</div>
+				<div id="fedTile" class="projectTile unshow">
+					<div class="tileStatus completed"></div>
+					<div class="tileContent frontend">
+						<h1>Front End Developer</h1>
+						<div class="continueButton clickable">see results</div>
+						<p class="completionText">100% completed</p>
+						<div class="completionBar">
+							<div class="completionDone" style="width: 100%;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

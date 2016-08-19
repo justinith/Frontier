@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Frontier | UX Designer</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/project.css">
+		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript" src="js/script.js"></script>
+
+	</head>
+	<body>
+		<div id="header">
+			<div class="container">
+				<div id="nav">
+					<a href="../index.html"><span class="logoText"><img src="img/logo_white.png"></span></a>
+					<div class="clickable">
+						
+						<!-- <div class="profileNav">
+							<div class="circular"></div>
+						</div> -->
+					</div>
+					
+				</div>
+			</div>
+			<div class="spacer"></div>
+			<div class="headerContent">
+				<h1>UX Designer</h1>
+			</div>
+			<p class="completionText">50% completed</p>
+				<div class="completionBar">
+					<div class="completionDone" style="width: 50%;"></div>
+				</div>
+			<div class="container">
+				<div class="row">
+					<div class="partMenu clickable">
+						
+						<a href="index.html"><div>Intro<i class="fa fa-check-circle"></i></div></a>
+						<a href="p2.html"><div>Part I<i class="fa fa-check-circle"></i></div></a>
+						<div class="activePart">Part II<i class="fa fa-circle-o" aria-hidden="true"></i></div>
+						<div>Part III<i class="fa fa-lock"></i></div>
+						<div>Final<i class="fa fa-lock"></i></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="coreContent">
+			<div class="container">
+				<div class="videoSection">
+					<div class="videoHolder">
+
+					<!-- 	<video id="coreVideo" width="770" height="440" controls>
+						  <source src="img/flow.mp4" type="video/mp4">
+						</video> -->
+
+						<script src="http://fast.wistia.com/embed/medias/uccj3lrxtm.jsonp" async></script><script src="http://fast.wistia.com/assets/external/E-v1.js" async></script><div id="core_sim_video" class="wistia_embed wistia_async_uccj3lrxtm" style="height:433px;width:770px;display:inline-block;">&nbsp;</div>
+						
+					</div>
+					<div class="vidInstructions">
+						<div class="revealInitiate">
+							<h1>Watch <b>Full Screen</b></h1>
+							<p>Finished the video?</p>
+							<div class="revealButton clickable">Show Task</div>
+						</div>
+						<div class="taskWork">
+							<h4>TASK</h4>
+							<h2>Create a <span class="emph">product flow</span> of LocalVents</h2>
+							<p>List of the <i>sequence of events</i> a user goes through from first opening the app to their <i>end goal</i>. What information do they need to see or give? Reference your <i>user personas</i> and work backwards from their goals.</p>
+							<!-- <p class="materialsInstruction">Use a pen & paper or</p>
+							<div class="useTempButton clickable">Use Template</div> -->
+							<div class="seperatorLine"></div>
+							<!-- <a href="p4.html"> -->
+								<div class="finishButton clickable">
+									DONE <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+								</div>
+							<!-- </a> -->
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="upsellModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	<h1>Gaining clarity?</h1>
+		      	<h3>Sign up to save your progress, get personal feedback, and access to more simulations. What will you test drive next?</h3>
+		          <div class="form-group">
+ 		            <input type="text" class="form-control" id="recipient-name" placeholder="Name">
+		            <input type="text" class="form-control" id="recipient-email" placeholder="Email">
+		            <input type="text" class="form-control" id="recipient-phone" placeholder="Phone Number (optional)">
+		          </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button id="skip-button" type="button" class="modalBtn" data-dismiss="modal">Skip & Continue</button>
+		        <button id="submit-button" type="button" class="modalBtn" style="background-color: #FF7166; color: white;">Submit & Continue</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<footer>
+			<div class="container">
+				<div class="col-md-5">
+					<h3>About</h3>
+					<p>Frontier is an online platform of experiences that allow people to test drive professions through hands-on projects.</p>
+				</div>
+				<div class="col-md-5">
+					<h3>Professions</h3>
+					<p>UX Designer | UI Designer<br>Product Manager | Project Manager<br>Content Marketer | Social Media Marketer<br>Front End Developer | Back-end Developer</p>
+				</div>
+				<div class="col-md-2">
+					<h3>Contact</h3>
+					<p>team@discoverfrontier.com</p>
+					<p>206.697.3778</p>
+					<p>&#169; Frontier 2016</p>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript">
+			$('.finishButton').click(function(){
+				$('#upsellModal').modal('show');
+			});
+
+			$("#skip-button").click(function(){
+	            window.location.href = 'p4.html';
+	        });
+			
+			
+
+		</script>
+	</body>
+</html>
