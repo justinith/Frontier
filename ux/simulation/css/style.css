@@ -25,7 +25,6 @@ a {
 #nav {
 	height: 60px;
 	line-height: 70px;
-	overflow: auto;
 	font-size: 12pt;
 }	
 	#nav .logoText {

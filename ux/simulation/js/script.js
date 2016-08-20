@@ -77,21 +77,47 @@
         });
 
         $('#submit-button').click(function(){
-                if(!getText()){
-                    alert("Need to add name");
-                }
-            });
 
-            function getText(){
-                var name = $('#recipient-name').val();
-                var email = $('#recipient-email').val();
-                var phone = $('#recipient-phone').val();
+            var name = $('#recipient-name').val();
+            var email = $('#recipient-email').val();
+            var phone = $('#recipient-phone').val();
 
-                if(name == "") {
-                    alert("NAME:" + name);
-                    return false;
+            var part = $('#submit-button').attr('data-part');
+
+            if(name == "" || email == ""){
+                // not complete info
+                alert("Need to fill out Name and Email");
+            } else {
+                if(validateEmail(email)){
+                    // success
+                    alert("Okay, good name and good email");
+
+                    // Upsell at Part III
+                    if(part == "3"){
+                        window.location.href = 'p4.html';
+                    }
+                    // Upsell at Finale
+                    else if(part == "5"){
+                        alert("");
+                    }
+
+                    // upload info, associate it to user
+                    
+                    // redirect to next page after uploads completes
+                    
+                } else {
+                    // invalid email
+                    alert("Please enter valid email.");
                 }
             }
+        });
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
     }
+
+
 
 })();

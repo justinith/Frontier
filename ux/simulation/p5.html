@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/project.css">
+		<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
@@ -25,7 +26,6 @@
 					
 				</div>
 			</div>
-			<div class="spacer"></div>
 			<div class="headerContent">
 				<h1>UX Designer</h1>
 			</div>
@@ -68,13 +68,33 @@
 							<p>Based on your experience with this...</p>
 							<p class="materialsInstruction">What would you like to do next?</p>
 							<div class="useTempButton clickable">MORE UX CONTENT</div>
-							<div class="useTempButton clickable">SEE OTHER PROFESSIONS</div>
+							<div class="useTempButton clickable">TRY OTHER PROFESSIONS</div>
 							<div class="useTempButton clickable">I'M DONE</div>
 						</div>
 						
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="modal fade" id="upsellModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	<h1>Let's be real <i class="em em-100"></i></h1>
+		      	<h3>As a high school or college student, you're still figuring out what you exactly want to do. 6 different careers sound interesting, how are you supposed to decide? <i class="em em-disappointed_relieved"></i><br><br>We get it, we were there. We want to help you explore careers in a fast, effective way. It's all about narrowing down your options.<br><b>Sign up to hear about more simulations!</b> <i class="em em-confetti_ball"></i></h3>
+		          <div class="form-group">
+ 		            <input type="text" class="form-control" id="recipient-name" placeholder="Name">
+		            <input type="text" class="form-control" id="recipient-email" placeholder="Email">
+		            <input type="text" class="form-control" id="recipient-phone" placeholder="Phone Number (optional)">
+		          </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button id="submit-button" data-part="5" type="button" class="modalBtn" style="background-color: #FF7166; color: white; width: 100%; letter-spacing: 7px;">SUBMIT</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 		
 		<footer>
@@ -95,5 +115,17 @@
 				</div>
 			</div>
 		</footer>
+
+		<script type="text/javascript">
+		
+			$('.useTempButton').click(function(){
+				$('#upsellModal').modal('show');
+			});
+
+			$("#skip-button").click(function(){
+	            window.location.href = 'p4.html';
+	        });
+
+		</script>
 	</body>
 </html>
