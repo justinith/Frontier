@@ -96,11 +96,25 @@
     	// 	}
     	// });
 
-    	$('.proEmailAdd input').click(function(){
-    		mixpanel.track("Email Box Click", {
-		        "source": 'lip'
+    	// $('.proEmailAdd input').click(function(){
+    	// 	mixpanel.track("Email Box Click", {
+		   //      "source": 'lip'
+		   //  });
+    	// });
+
+    	$('.startSimulationButton').click(function(){
+    		var clickSource = $(this).attr('data-source');
+
+    		mixpanel.track('simulation_start', { 'source': 'foo' }, function(){
+		    	fbq('track', 'CompleteRegistration');
+		    	window.location.href = 'simulation/index.html';
 		    });
+
+    		// Tell Facebook this was a lead
+		    
     	});
+
+
 
     	// $('.proEmailAdd .submitButton').click(function(){
     	// 	var newEmail = $('.proEmailAdd input').val();
