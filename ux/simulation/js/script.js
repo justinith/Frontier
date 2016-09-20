@@ -1,7 +1,7 @@
 (function() {
 
     var isFirst = false;
-    var PART;
+    var PART = "";
     var LOGGED_IN = false;
     var TOTAL_PAUSES = 0;
     var NEXT_OPTION = "NA";
@@ -34,27 +34,15 @@
             if(PART == '1-intro'){
                 startRightPart(currentPart);
             } else {
-                // if the user is on the 4th part, and the 
-                // current part of the user is still the 3rd, 
-                // change it to the 4th
-                if(PART == '4-lowfi' && currentPart == '3-flow'){
-                    CURRENT_USER.set("currentPart", "4-lowfi");
-                    CURRENT_USER.save(null, {
-                        success: function(user) {
-                            console.log('Current part updated');
-                        }
-                    });
-
-                // if the user is on the 5th part, and the 
-                // current part of the user is still the 4rd, 
-                // change it to the 5th
+                
+                if(PART == '2-personas' && currentPart == '1-intro'){
+                    setCurrentPartOfUser('2-personas');
+                } else if(PART == '3-flow' && currentPart == '2-personas'){
+                    setCurrentPartOfUser('3-flow');
+                } else if(PART == '4-lowfi' && currentPart == '3-flow'){
+                    setCurrentPartOfUser("4-lowfi");
                 } else if(PART == '5-finale' && currentPart == '4-lowfi'){
-                    CURRENT_USER.set("currentPart", "5-finale");
-                    CURRENT_USER.save(null, {
-                        success: function(user) {
-                            console.log('Current part updated');
-                        }
-                    });
+                    setCurrentPartOfUser("5-finale");
                 }
             }
 
@@ -63,6 +51,15 @@
 
         // When page loads, tell MP that is loaded
         mixpanel.track("Part Load", { "part": PART });    
+    }
+
+    function setCurrentPartOfUser(part){
+        CURRENT_USER.set("currentPart", part);
+        CURRENT_USER.save(null, {
+            success: function(user) {
+                console.log('Current part updated');
+            }
+        });
     }
 
     function initVideoListeners(){
@@ -86,7 +83,7 @@
 
             // Auto show the task when the video ends
             video.bind("end", function() {
-              $('.videoHolder').animate({
+                $('.videoHolder').animate({
                     width: 800},
                     700,function(){
                         console.log("Video ended and was paused " + TOTAL_PAUSES + " times.");
@@ -94,6 +91,7 @@
                         if(isFirst){
                             $('.vidInstructions').css('display','inherit');
                             $('.revealInitiate').slideDown();
+                            $('#skipAhead').slideUp();
                         } else {
                             $('.vidInstructions').css('display','inherit');
                             $('.taskWork').slideDown();
@@ -113,6 +111,25 @@
     }
 
     function initListeners(){
+
+        if(isFirst){
+            $('#skipAheadLink').click(function(){
+                $('#skipAhead').slideUp();
+                $('.videoHolder').animate({
+                    width: 800},
+                    700,function(){
+                        console.log("Video ended and was paused " + TOTAL_PAUSES + " times.");
+                        $('.vidInstructions').css('display','inherit');
+                        $('.revealInitiate').slideDown();
+                        
+                    }
+                );
+            });
+
+            $('.finishButton').click(function(){
+                attemptSubmitNewUser();
+            });
+        }
 
         $('.startButton').click(function(){
            $('.openingScreen').slideUp(800); 
@@ -216,6 +233,10 @@
                 alert("Congrats! You're signed up and done. We'll reach out soon!");
             }
 
+            else if(isFirst){
+                window.location.href = 'p2.html';
+            }
+
           },
           error: function(user, error) {
             // Show the error message somewhere and let the user try again.
@@ -241,6 +262,8 @@
                 window.location.href = 'p4.html';
             } else if(currentPart == "5-finale"){
                 window.location.href = 'p5.html';
+            } else if(currentPart == "2-personas"){
+                window.location.href = 'p2.html';
             }
         }
 

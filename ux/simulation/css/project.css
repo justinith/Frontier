@@ -139,11 +139,22 @@ body {
 		#skipAhead {
 			margin-top: 15px;
 			font-size: 14pt;
+			display: inline-block;
 		}
 
-		#skipAhead a {
-			color: #009480;
+		#skipAheadLink {
+			display: inline-block;
+		    background: #FFB734;
+		    color: white;
+		    padding: 10px 20px;
+		    border-radius: 5px;
+			margin-left: 10px;
 		}
+			#skipAheadLink:hover {
+				background-color: #FAB750;
+				cursor: pointer;
+				font-style: italic;
+			}
 
 	video {
 		text-align: center;
@@ -163,7 +174,7 @@ body {
 		.vidInstructions .revealInitiate p {
 			font-size: 15pt;
 			font-weight: 300;
-			margin-top: 15vh;
+			margin-top: 8vh;
 		}
 
 		.vidInstructions .revealInitiate h1 {

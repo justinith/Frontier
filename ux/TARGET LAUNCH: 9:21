@@ -1,0 +1,57 @@
+TARGET LAUNCH: 9/21
+
+GOAL: Improve ad conversion and improve how far people go through the course and improve our feedback/measure mechanisms
+
+TO DO:
+
+OSCAR
+Improving Ad Conversion
+ - 1.1 - Figure out targeting
+ - 1.2 - Improve ad design
+ - 1.3 - Improve ad copy
+ - 2.1 - Implement correct FB tracking pixel
+ - 3.1 - BONUS: Look into Google AdWords
+
+
+Improve how far people go through the course
+ - Improve explaining the course on the landing page
+ 	- WHY?: Because then people will have the right expectations and get delivered the value they thought they would get
+ 	- List out what to add = 30min -- 6pm
+ 	- Design it = 2hr -- 9pm
+ 	- Code it = 2hr -- 11pm
+ - Change the user persona into smaller chunks
+ 	- Change the video
+ 	- Implement it
+ - Add ability to jump around?
+ - Add ability to skip? Maybe the peak feature
+
+
+Improve feedback measurement mechanisms
+ - Ask for required name before starting
+ 	- Design
+ 	- Implement
+ - Ask for email or phone number before going on to step 2?
+ 	- Design
+ 	- Implement
+
+ SET UP PROPER EMAIL
+
+ IMPLEMENT PROPER FACEBOOK PIXEL TRACKING
+
+ IMPLEMENT MIXPANEL USER TRACKING
+
+
+
+v0.2 Updates
+	- Landing Page
+		- Added the short UX Design promo video on the top
+		- Included more detail on the simulation
+		- Removed the "Frontier simulation" definition
+		- Added "Coming Soon" notes on 360 vid & VR
+	- Intro Screen
+		- Added sign up boxes for "Name" and "Email", and require both fields in order to continue
+		- Refined the "Skip Ahead" button design & to toggle sign up boxes
+
+
+
+

@@ -2334,9 +2334,8 @@
 
 }
 	#uxSimulationDesc h1 {
-		float: left;
 		font-size: 3em;
-		margin: 0px;
+		margin-bottom: 80px;
 	}
 
 	#uxSimulationDesc h2 {
