@@ -14,7 +14,7 @@ Improving Ad Conversion
 
 
 Improve how far people go through the course
- - Improve explaining the course on the landing page
+ DONE - Improve explaining the course on the landing page
  	- WHY?: Because then people will have the right expectations and get delivered the value they thought they would get
  	- List out what to add = 30min -- 6pm
  	- Design it = 2hr -- 9pm
@@ -27,18 +27,24 @@ Improve how far people go through the course
 
 
 Improve feedback measurement mechanisms
- - Ask for required name before starting
+ DONE - Ask for required name before starting
  	- Design
  	- Implement
- - Ask for email or phone number before going on to step 2?
+ DONE - Ask for email or phone number before going on to step 2?
  	- Design
  	- Implement
 
- SET UP PROPER EMAIL
+ DONE - SET UP PROPER EMAIL
 
- IMPLEMENT PROPER FACEBOOK PIXEL TRACKING
+ DONE? - IMPLEMENT PROPER FACEBOOK PIXEL TRACKING
 
- IMPLEMENT MIXPANEL USER TRACKING
+ DONE - FIX LANDING PAGE MP TRACKING
+
+ DONE - IMPLEMENT MIXPANEL USER TRACKING
+
+ DONE - WHEN SKIPPING, PAUSE VIDEO
+
+ DONE - REMOVE PART 3 AND 5 UPSELL
 
 
 

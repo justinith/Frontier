@@ -6,6 +6,7 @@
     var TOTAL_PAUSES = 0;
     var NEXT_OPTION = "NA";
     var CURRENT_USER;
+    var ISANON = false;
 
     window.onload = function(){
         setState();
@@ -26,40 +27,47 @@
         }
 
         CURRENT_USER = Parse.User.current();
+        mixpanel.identify(CURRENT_USER.id);
+
         if (CURRENT_USER) {
             LOGGED_IN = true;
-            var currentPart = CURRENT_USER.get('currentPart');
 
-            // If this is the intro screen
-            if(PART == '1-intro'){
-                startRightPart(currentPart);
+            // if this is a temp user, don't do anything
+
+            ISANON = CURRENT_USER.get('isAnonUserAcc');
+
+            // If the user is an anonymous user
+            if(ISANON){
+                console.log('This is a anon account');
             } else {
-                
-                if(PART == '2-personas' && currentPart == '1-intro'){
-                    setCurrentPartOfUser('2-personas');
-                } else if(PART == '3-flow' && currentPart == '2-personas'){
-                    setCurrentPartOfUser('3-flow');
-                } else if(PART == '4-lowfi' && currentPart == '3-flow'){
-                    setCurrentPartOfUser("4-lowfi");
-                } else if(PART == '5-finale' && currentPart == '4-lowfi'){
-                    setCurrentPartOfUser("5-finale");
+                var currentPart = CURRENT_USER.get('currentPart');
+
+                // If this is the intro screen
+                if(PART == '1-intro'){
+                    startRightPart(currentPart);
+                } else {
+                    
+                    if(PART == '2-personas' && currentPart == '1-intro'){
+                        setCurrentPartOfUser('2-personas');
+                    } else if(PART == '3-flow' && currentPart == '2-personas'){
+                        setCurrentPartOfUser('3-flow');
+                    } else if(PART == '4-lowfi' && currentPart == '3-flow'){
+                        setCurrentPartOfUser("4-lowfi");
+                    } else if(PART == '5-finale' && currentPart == '4-lowfi'){
+                        setCurrentPartOfUser("5-finale");
+                    }
                 }
+
+                console.log("The part the user, " + CURRENT_USER.get("name") + " is at is " + CURRENT_USER.get('currentPart'));    
             }
 
-            console.log("The part the user, " + CURRENT_USER.get("name") + " is at is " + CURRENT_USER.get('currentPart'));
+        // If for some reason the user isn't logged into Parse
+        } else {
+            alert("Error with user login. Error Code: no_logged_temp_user. Please contact team@discoverfrontier.com for fixes. We're sorry for the problem.");
         }
 
         // When page loads, tell MP that is loaded
         mixpanel.track("Part Load", { "part": PART });    
-    }
-
-    function setCurrentPartOfUser(part){
-        CURRENT_USER.set("currentPart", part);
-        CURRENT_USER.save(null, {
-            success: function(user) {
-                console.log('Current part updated');
-            }
-        });
     }
 
     function initVideoListeners(){
@@ -114,6 +122,8 @@
 
         if(isFirst){
             $('#skipAheadLink').click(function(){
+                var video = Wistia.api("core_sim_video");
+                video.pause();
                 $('#skipAhead').slideUp();
                 $('.videoHolder').animate({
                     width: 800},
@@ -127,7 +137,11 @@
             });
 
             $('.finishButton').click(function(){
-                attemptSubmitNewUser();
+                if(ISANON){
+                    attemptRegisterNewUser();
+                } else {
+                    // attemptSubmitNewUser();
+                }
             });
         }
 
@@ -146,7 +160,11 @@
         });
 
         $('#submit-button').click(function(){
-            attemptSubmitNewUser();
+            if(ISANON){
+                attemptRegisterNewUser();
+            } else {
+                // attemptSubmitNewUser();
+            }
         });
 
         $('.finishButton').click(function(){
@@ -174,7 +192,29 @@
 
         $("#logoutbackdoor").click(function(){
             Parse.User.logOut();
+            console.log("Logged out via backdoor");
         });
+    }
+
+    // register a new user with real info
+    function attemptRegisterNewUser(){
+        var name = $('#recipient-name').val();
+        var email = $('#recipient-email').val();
+        var phone = $('#recipient-phone').val();
+
+        if(name == "" || email == ""){
+            // not complete info
+            alert("Need to fill out Name and Email");
+        } else {
+            if(validateEmail(email)){
+                // success, upload info, associate it to user
+                // newUser(name,email,phone);
+                registerUser(name,email,phone);
+            } else {
+                // invalid email
+                alert("Please enter valid email.");
+            }
+        }
     }
 
     function attemptSubmitNewUser(){
@@ -197,6 +237,57 @@
                 alert("Please enter valid email.");
             }
         }
+    }
+
+    // Registers the current user with new info
+    function registerUser(name,email,phone){
+
+        // Update Parse user data
+
+        CURRENT_USER.set("email", email);
+        CURRENT_USER.set("name", name);
+        CURRENT_USER.set("upsellPart", PART);
+        CURRENT_USER.set("currentPart", PART);
+        CURRENT_USER.set("next_option", NEXT_OPTION);
+        CURRENT_USER.set("isAnonUserAcc", false);
+
+        if(phone != ""){
+            CURRENT_USER.set("phoneNum", phone);
+        }
+
+        $('.loadingScreen').css('display','initial');
+
+        CURRENT_USER.save(null, {
+          success: function(user) {
+            mixpanel.track("new_user", { "part": PART, "name": name, "email": email});
+
+            $('.loadingScreen').css('display','none');
+            // redirect to next page after uploads completes
+            // Upsell at Part III
+            if(PART == "3-flow"){
+                window.location.href = 'p4.html';
+            }
+            // Upsell at Finale
+            else if(PART == "5-finale"){
+                alert("Congrats! You're signed up and done. We'll reach out soon!");
+            }
+
+            else if(isFirst){
+                mixpanel.people.set({
+                    "$email": email,
+                    "$name": name
+                },function(){
+                    window.location.href = 'p2.html';
+                });
+            }
+
+          },
+          error: function(user, error) {
+            // Show the error message somewhere and let the user try again.
+            alert("Error: " + error.code + " " + error.message);
+            $('.loadingScreen').css('display','none');
+          }
+        });
     }
 
     function newUser(name,email,phone){
@@ -243,6 +334,19 @@
             alert("Error: " + error.code + " " + error.message);
             $('.loadingScreen').css('display','none');
           }
+        });
+    }
+
+    function setCurrentPartOfUser(part){
+        CURRENT_USER.set("currentPart", part);
+        CURRENT_USER.save(null, {
+            success: function(user) {
+                mixpanel.people.set({
+                    "currentPart": part
+                },function(){
+                    console.log('Current part updated in Parse & MP');
+                });
+            }
         });
     }
 

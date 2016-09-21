@@ -1,5 +1,7 @@
 (function($) {
 
+	var CURRENT_USER;
+
 	skel.breakpoints({
 		wide: '(max-width: 1680px)',
 		normal: '(max-width: 1280px)',
@@ -71,70 +73,53 @@
 
 	window.onload = function(){
 		mixpanel.track("Page Loaded");
+
+		mixpanel.identify("12148");
+    	mixpanel.people.set({
+		    "$email": "jsmith@example.com",    // only special properties need the $
+		    
+		    "$created": "2011-03-16 16:53:54",
+		    "$last_login": new Date(),         // properties can be dates...
+		    
+		    "credits": 150,                    // ...or numbers
+		    
+		    "gender": "Male",                    // feel free to define your own properties
+			
+			"$name": "TESTING PERSON"
+		});
+
+		// Check if there is a current user
+		// if there isn't, create one with a temp one
+
+		CURRENT_USER = Parse.User.current();
+
+		if(CURRENT_USER){
+			console.log('This is a currently logged in user: ' + CURRENT_USER.id);
+			
+			mixpanel.identify(CURRENT_USER.id);
+	    	mixpanel.people.set({
+			    "$last_login": new Date(),
+			});
+		} else {
+			newUser();
+		}
+
     	initListeners();
     }
 
     function initListeners(){
     	// Email sign up at Header
 
-    	// $('.emailCTASection .submit').click(function(){
-    	// 	var newEmail = $('.emailCTASection input').val();
-    	// 	if(validateEmail(newEmail)){
-    	// 		uploadEmail(newEmail,'header');
-    	// 		mixpanel.track("New Email", {
-			  //       "email": newEmail,
-			  //       "status": "success",
-			  //       "source": 'header'
-			  //   });
-    	// 	} else {
-    	// 		mixpanel.track("New Email", {
-			  //       "email": newEmail,
-			  //       "status": "failure",
-			  //       "source": 'header'
-			  //   });
-    	// 		alert('Oops, please enter valid email address');
-    	// 	}
-    	// });
-
-    	// $('.proEmailAdd input').click(function(){
-    	// 	mixpanel.track("Email Box Click", {
-		   //      "source": 'lip'
-		   //  });
-    	// });
-
     	$('.startSimulationButton').click(function(){
     		var clickSource = $(this).attr('data-source');
 
-    		mixpanel.track('simulation_start', { 'source': 'foo' }, function(){
+    		mixpanel.track('simulation_start', { 'source': clickSource }, function(){
+		    	// Tell Facebook this was a lead
 		    	fbq('track', 'CompleteRegistration');
 		    	window.location.href = 'simulation/index.html';
 		    });
-
-    		// Tell Facebook this was a lead
 		    
     	});
-
-
-
-    	// $('.proEmailAdd .submitButton').click(function(){
-    	// 	var newEmail = $('.proEmailAdd input').val();
-    	// 	if(validateEmail(newEmail)){
-    	// 		uploadEmail(newEmail,'lip');
-    	// 		mixpanel.track("New Email", {
-			  //       "email": newEmail,
-			  //       "status": "success",
-			  //       "source": 'lip'
-			  //   });
-    	// 	} else {
-    	// 		alert('Oops, please enter valid email address');
-    	// 		mixpanel.track("New Email", {
-			  //       "email": newEmail,
-			  //       "status": "failure",
-			  //       "source": 'lip'
-			  //   });
-    	// 	}
-    	// });
-
 
     	setInterval(function(){
 
@@ -184,45 +169,17 @@
 
     		// Did the user reach the professional list part?
 
-    		var proListListener = $('#proListListener');
-    		if(isScrolledIntoView(proListListener)){
+    		var bottomUpsell = $('#bottomUpsellListener');
+    		if(isScrolledIntoView(bottomUpsell)){
     			if(!check5){
-    				trackPageDepth('pro_list');
-    				console.log('Professions list section in view');
+    				trackPageDepth('bottom_upsell');
+    				console.log('Bottom upsell section in view');
     				check5 = true;
     			}	
     		}
 
     	},500);
     }
-
- //    function validateEmail(email) {
-	//     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	//     return re.test(email);
-	// }
-
-	// function uploadEmail(email,source){
-	// 	fbq('track', 'Lead');
-	// 	var BetaEmail = Parse.Object.extend("BetaEmail");
-	// 	var betaEmail = new BetaEmail();
-
-	// 	betaEmail.set("email", email);
-	// 	betaEmail.set("source", source);
-
-	// 	betaEmail.save(null, {
-	// 	  success: function(betaEmail) {
-
-	// 	    // Execute any logic that should take place after the object is saved.
-	// 	    toastr.success('Email Submitted', 'Look out for our Beta release!')
-	// 	    // alert('New object created with objectId: ' + betaEmail.id);
-	// 	  },
-	// 	  error: function(gameScore, error) {
-	// 	    // Execute any logic that should take place if the save fails.
-	// 	    // error is a Parse.Error with an error code and message.
-	// 	    alert('Failed to create new object, with error code: ' + error.message);
-	// 	  }
-	// 	});
-	// }
 
 	function isScrolledIntoView(elem) {
 	    var docViewTop = $(window).scrollTop();
@@ -239,6 +196,52 @@
 			        "level": section
 			    });
 	}
+
+	function newUser(){
+
+        var username = "anon-" + (Math.floor(Math.random() * (1000000000)) + 1);
+
+        var user = new Parse.User();
+        user.set("username", username);
+        user.set("password", "temppass");
+        user.set("isAnonUserAcc", true);
+
+        user.signUp(null, {
+          success: function(user) {
+
+          	mixpanel.identify(user.id);
+
+          	var anonUserName = 'anon-' + user.id;
+
+	    	mixpanel.people.set({
+			    "$created": new Date(),
+			    "$last_login": new Date(),       
+			    
+				"$name": anonUserName
+			});
+
+			console.log('New Parse & mixpanel user');
+
+			// mixpanel.people.set({
+			//     "$email": "jsmith@example.com",    // only special properties need the $
+			    
+			//     "$created": "2011-03-16 16:53:54",
+			//     "$last_login": new Date(),         // properties can be dates...
+			    
+			//     "credits": 150,                    // ...or numbers
+			    
+			//     "gender": "Male",                    // feel free to define your own properties
+				
+			// 	"$name": "TESTING PERSON"
+			// });
+          },
+          error: function(user, error) {
+            // Show the error message somewhere and let the user try again.
+            alert("Error: " + error.code + " " + error.message);
+            $('.loadingScreen').css('display','none');
+          }
+        });
+    }
 
 })(jQuery);
 
