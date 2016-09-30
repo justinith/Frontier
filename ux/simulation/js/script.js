@@ -8,6 +8,8 @@
     var CURRENT_USER;
     var ISANON = false;
 
+
+
     window.onload = function(){
         setState();
     	initListeners();
@@ -15,6 +17,7 @@
     }
 
     function setState(){
+        $('.loadingScreen').css('display','none');
         Parse.initialize("dAZG21fjAIntGGj3aCYhCPU0DzyYK3IwOOFKo87K", "K4FaGmO8AEwTGkQjBrm0kfa0awBxc2ROrgpC6RG7");
 
         // Sets which part this is
@@ -83,7 +86,7 @@
                 video.bind("play", function(){
                     timeWatched = video.time();
                     console.log("Video was played at " + timeWatched);
-                    mixpanel.track("video-play", { "part": PART, "time": timeWatched});
+                    mixpanel.track("video-play", { "part": PART, "time": timeWatched });
                 });
 
                 video.play();   
@@ -201,51 +204,37 @@
         var name = $('#recipient-name').val();
         var email = $('#recipient-email').val();
         var phone = $('#recipient-phone').val();
+        var pw = $('#recipient-password').val();
+        var pwc = $('#recipient-password-confirm').val();
 
         if(name == "" || email == ""){
             // not complete info
             alert("Need to fill out Name and Email");
         } else {
-            if(validateEmail(email)){
+            if(pw != pwc){
+                // mismatched passwords
+                alert("Your passwords do not match. Please type the same password.");
+            } else if(validateEmail(email) == false){
+
+                // invalid email
+                alert("Please enter valid email.");
+            } else if(validateEmail(email)){
+                
                 // success, upload info, associate it to user
                 // newUser(name,email,phone);
-                registerUser(name,email,phone);
-            } else {
-                // invalid email
-                alert("Please enter valid email.");
-            }
-        }
-    }
-
-    function attemptSubmitNewUser(){
-        var name = $('#recipient-name').val();
-        var email = $('#recipient-email').val();
-        var phone = $('#recipient-phone').val();
-
-        if(name == "" || email == ""){
-            // not complete info
-            alert("Need to fill out Name and Email");
-        } else {
-            if(validateEmail(email)){
-                // success
-
-                // upload info, associate it to user
-                newUser(name,email,phone);
-                
-            } else {
-                // invalid email
-                alert("Please enter valid email.");
+                registerUser(name,email,phone,pw);
             }
         }
     }
 
     // Registers the current user with new info
-    function registerUser(name,email,phone){
+    function registerUser(name,email,phone,pw){
 
         // Update Parse user data
 
         CURRENT_USER.set("email", email);
         CURRENT_USER.set("name", name);
+        CURRENT_USER.set("password",pw);
         CURRENT_USER.set("upsellPart", PART);
         CURRENT_USER.set("currentPart", PART);
         CURRENT_USER.set("next_option", NEXT_OPTION);
@@ -279,53 +268,6 @@
                 },function(){
                     window.location.href = 'p2.html';
                 });
-            }
-
-          },
-          error: function(user, error) {
-            // Show the error message somewhere and let the user try again.
-            alert("Error: " + error.code + " " + error.message);
-            $('.loadingScreen').css('display','none');
-          }
-        });
-    }
-
-    function newUser(name,email,phone){
-
-        var username = name + "-" + email + "-" + (Math.floor(Math.random() * (100000)) + 1);
-
-        var user = new Parse.User();
-        user.set("username", username);
-        user.set("password", "temppass");
-        user.set("email", email);
-        user.set("name", name);
-        user.set("upsellPart", PART);
-        user.set("currentPart", PART);
-        user.set("next_option", NEXT_OPTION);
-
-        if(phone != ""){
-            user.set("phoneNum", phone);
-        }
-
-        $('.loadingScreen').css('display','initial');
-
-        user.signUp(null, {
-          success: function(user) {
-            mixpanel.track("new_user", { "part": PART, "name": name, "email": email});
-
-            $('.loadingScreen').css('display','none');
-            // redirect to next page after uploads completes
-            // Upsell at Part III
-            if(PART == "3-flow"){
-                window.location.href = 'p4.html';
-            }
-            // Upsell at Finale
-            else if(PART == "5-finale"){
-                alert("Congrats! You're signed up and done. We'll reach out soon!");
-            }
-
-            else if(isFirst){
-                window.location.href = 'p2.html';
             }
 
           },

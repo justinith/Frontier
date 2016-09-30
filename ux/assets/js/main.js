@@ -74,20 +74,6 @@
 	window.onload = function(){
 		mixpanel.track("Page Loaded");
 
-		mixpanel.identify("12148");
-    	mixpanel.people.set({
-		    "$email": "jsmith@example.com",    // only special properties need the $
-		    
-		    "$created": "2011-03-16 16:53:54",
-		    "$last_login": new Date(),         // properties can be dates...
-		    
-		    "credits": 150,                    // ...or numbers
-		    
-		    "gender": "Male",                    // feel free to define your own properties
-			
-			"$name": "TESTING PERSON"
-		});
-
 		// Check if there is a current user
 		// if there isn't, create one with a temp one
 
@@ -116,7 +102,7 @@
     		mixpanel.track('simulation_start', { 'source': clickSource }, function(){
 		    	// Tell Facebook this was a lead
 		    	fbq('track', 'CompleteRegistration');
-		    	window.location.href = 'simulation/index.html';
+		    	window.location.href = 'simulation/';
 		    });
 		    
     	});
@@ -213,12 +199,32 @@
 
           	var anonUserName = 'anon-' + user.id;
 
-	    	mixpanel.people.set({
+          	mixpanel.people.set({
 			    "$created": new Date(),
-			    "$last_login": new Date(),       
+			    "$last_login": new Date(),      
 			    
 				"$name": anonUserName
 			});
+
+			// Check for URI params
+
+          	if(hasURLParameter()){
+
+          		var URLsource = getURLParameterByName('source');
+          		var URLcampaign = getURLParameterByName('campaign');
+          		
+          		mixpanel.people.set({
+
+				    "$URL_source": URLsource,
+				    "$URL_campaign" : URLcampaign       
+				    
+				});
+
+				console.log('there were URI params');
+          	}
+          	
+
+	    	
 
 			console.log('New Parse & mixpanel user');
 
@@ -242,6 +248,25 @@
           }
         });
     }
+
+    function hasURLParameter(){
+    	var url = window.location.href;
+    	if(url.split("/?")[1] == undefined){
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+
+    function getURLParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 
 })(jQuery);
 
