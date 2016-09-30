@@ -17,7 +17,7 @@
     }
 
     function setState(){
-        $('.loadingScreen').css('display','none');
+        
         Parse.initialize("dAZG21fjAIntGGj3aCYhCPU0DzyYK3IwOOFKo87K", "K4FaGmO8AEwTGkQjBrm0kfa0awBxc2ROrgpC6RG7");
 
         // Sets which part this is
@@ -77,7 +77,7 @@
         var video = Wistia.api("core_sim_video");
 
         video.ready(function(){
-
+            $('.loadingScreen').css('display','none');
             var timeWatched;
 
             // Auto play the video when the page loads
