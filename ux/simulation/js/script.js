@@ -19,6 +19,7 @@
     function setState(){
         
         Parse.initialize("dAZG21fjAIntGGj3aCYhCPU0DzyYK3IwOOFKo87K", "K4FaGmO8AEwTGkQjBrm0kfa0awBxc2ROrgpC6RG7");
+        console.log(Parse.Session.isCurrentSessionRevocable());
 
         // Sets which part this is
         PART = $("body").attr("data-part");
@@ -42,14 +43,26 @@
             // If the user is an anonymous user
             if(ISANON){
                 console.log('This is a anon account');
+            // If the user is a registered user
             } else {
+
+                // Get the part the user was last at
+                // at their most recent session
                 var currentPart = CURRENT_USER.get('currentPart');
+                
+
+                currentPart = mixpanel.get_property("$email");
+                console.log("User's current part in Parse: " + currentPart);
 
                 // If this is the intro screen
                 if(PART == '1-intro'){
                     startRightPart(currentPart);
+                
+                // If this is not the intro screen
                 } else {
                     
+                    console.log("The CURRENT part is " + PART);
+
                     if(PART == '2-personas' && currentPart == '1-intro'){
                         setCurrentPartOfUser('2-personas');
                     } else if(PART == '3-flow' && currentPart == '2-personas'){
@@ -58,10 +71,12 @@
                         setCurrentPartOfUser("4-lowfi");
                     } else if(PART == '5-finale' && currentPart == '4-lowfi'){
                         setCurrentPartOfUser("5-finale");
+                    } else {
+                        console.log("Not setting new part of user");
                     }
                 }
 
-                console.log("The part the user, " + CURRENT_USER.get("name") + " is at is " + CURRENT_USER.get('currentPart'));    
+                console.log(CURRENT_USER.get("name") + "(the user) is at part: " + CURRENT_USER.get('currentPart'));    
             }
 
         // If for some reason the user isn't logged into Parse
@@ -253,18 +268,19 @@
             $('.loadingScreen').css('display','none');
             // redirect to next page after uploads completes
             // Upsell at Part III
-            if(PART == "3-flow"){
-                window.location.href = 'p4.html';
-            }
+            // if(PART == "3-flow"){
+            //     window.location.href = 'p4.html';
+            // }
             // Upsell at Finale
-            else if(PART == "5-finale"){
-                alert("Congrats! You're signed up and done. We'll reach out soon!");
-            }
+            // else if(PART == "5-finale"){
+            //     alert("Congrats! You're signed up and done. We'll reach out soon!");
+            // }
 
-            else if(isFirst){
+            if(isFirst){
                 mixpanel.people.set({
                     "$email": email,
-                    "$name": name
+                    "$name": name,
+                    "currentPart": PART
                 },function(){
                     window.location.href = 'p2.html';
                 });
@@ -273,23 +289,39 @@
           },
           error: function(user, error) {
             // Show the error message somewhere and let the user try again.
-            alert("Error: " + error.code + " " + error.message);
+            alert("There was an error in creating the new user: " + error.code + " " + error.message);
             $('.loadingScreen').css('display','none');
           }
         });
     }
 
     function setCurrentPartOfUser(part){
-        CURRENT_USER.set("currentPart", part);
-        CURRENT_USER.save(null, {
-            success: function(user) {
-                mixpanel.people.set({
-                    "currentPart": part
-                },function(){
-                    console.log('Current part updated in Parse & MP');
-                });
-            }
+
+        mixpanel.people.set({
+            "currentPart": part
+        },function(){
+            console.log('Current part updated in Parse & MP');
         });
+
+        // console.log("Trying to set part to " + part);
+        // console.log(CURRENT_USER);
+
+
+        // CURRENT_USER.set("currentPart", part);
+        // CURRENT_USER.save(null, {
+        //     success: function(returnedUser) {
+        //         mixpanel.people.set({
+        //             "currentPart": part
+        //         },function(){
+        //             console.log('Current part updated in Parse & MP');
+        //         });
+        //         console.log("Changed the current user part");
+        //     },
+        //     error: function(returnedUser, error) {
+                
+        //         alert('Did not set new part of user: ' + error.message + " // error code: " + error.code);
+        //     }
+        // });
     }
 
     function validateEmail(email) {
@@ -310,7 +342,11 @@
                 window.location.href = 'p5.html';
             } else if(currentPart == "2-personas"){
                 window.location.href = 'p2.html';
+            } else {
+                console.log("current part error");
             }
+        } else {
+            console.log("No reidrect, Not the first part");
         }
 
         // When navigating to earlier parts, allow them to do so

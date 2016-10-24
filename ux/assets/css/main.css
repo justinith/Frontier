@@ -2379,7 +2379,7 @@
 			background-color: #FFC770;
 			color: white;
 			padding: 20px 55px;
-			font-size: 16pt;
+			font-size: 17pt;
 			letter-spacing: 3px;
 			text-align: center;
 			margin-top: 10px; 
@@ -2391,6 +2391,13 @@
 				cursor: pointer;
 			}
 
+	#header .loginButton {
+		text-align: center;
+		font-size: 12px;
+		letter-spacing: 3px;
+		float: right;
+		padding: 15px 25px;
+	}
 			
 
 
