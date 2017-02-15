@@ -50,8 +50,9 @@
                 // at their most recent session
                 var currentPart = CURRENT_USER.get('currentPart');
                 
+                currentPart = localStorage.getItem("userPart");
 
-                currentPart = mixpanel.get_property("$email");
+                // currentPart = mixpanel.get_property("$email");
                 console.log("User's current part in Parse: " + currentPart);
 
                 // If this is the intro screen
@@ -76,7 +77,7 @@
                     }
                 }
 
-                console.log(CURRENT_USER.get("name") + "(the user) is at part: " + CURRENT_USER.get('currentPart'));    
+                console.log(CURRENT_USER.get("name") + "(the user) is at part: " + localStorage.getItem("userPart"));    
             }
 
         // If for some reason the user isn't logged into Parse
@@ -212,6 +213,12 @@
             Parse.User.logOut();
             console.log("Logged out via backdoor");
         });
+
+        $("#logoutButton").click(function(){
+            Parse.User.logOut();
+            console.log("Logged out via backdoor");
+            window.location.href = '../index.html';
+        });
     }
 
     // register a new user with real info
@@ -276,6 +283,8 @@
             //     alert("Congrats! You're signed up and done. We'll reach out soon!");
             // }
 
+            localStorage.setItem("userPart","1-intro");
+
             if(isFirst){
                 mixpanel.people.set({
                     "$email": email,
@@ -297,13 +306,15 @@
 
     function setCurrentPartOfUser(part){
 
-        mixpanel.people.set({
-            "currentPart": part
-        },function(){
-            console.log('Current part updated in Parse & MP');
-        });
+        // mixpanel.people.set({
+        //     "currentPart": part
+        // },function(){
+        //     console.log('Current part updated in Parse & MP');
+        // });
 
-        // console.log("Trying to set part to " + part);
+        localStorage.setItem("userPart",part);
+
+        // console.log("Trying to set user's part to " + part);
         // console.log(CURRENT_USER);
 
 

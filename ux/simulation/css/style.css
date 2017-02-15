@@ -73,3 +73,13 @@ footer {
 	footer h3 {
 		margin-bottom: 15px;
 	}
+
+#logoutButton {
+	border: solid 1px #686868;
+	display: inline-block;
+	padding: 7px 20px;
+	border-radius: 5px;
+}
+	#logoutButton:hover {
+		cursor: pointer;
+	}
