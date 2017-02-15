@@ -8,8 +8,6 @@
     var CURRENT_USER;
     var ISANON = false;
 
-
-
     window.onload = function(){
         setState();
     	initListeners();

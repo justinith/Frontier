@@ -134,7 +134,7 @@ body {
 		float: left;
 		width: 800px;
 		text-align: center;
-		width: 100%;
+		/*width: 100%;*/
 	}
 		#skipAhead {
 			margin-top: 15px;
@@ -164,7 +164,7 @@ body {
 	.vidInstructions {
 		float: left;
 		width: 340px;
-		display: none;
+		/*display: none;*/
 	}
 
 	.vidInstructions .revealInitiate {
@@ -207,7 +207,7 @@ body {
 	}
 
 	.vidInstructions .taskWork {
-		display: none;
+		/*display: none;*/
 	}
 
 		.vidInstructions .taskWork h4 {
